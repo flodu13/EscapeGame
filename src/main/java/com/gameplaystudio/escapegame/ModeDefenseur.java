@@ -2,8 +2,6 @@ package com.gameplaystudio.escapegame;
 
 public class ModeDefenseur extends Mode {
 
-	private Configuration configuration;
-
 	public ModeDefenseur(Configuration configuration) {
 		this.configuration = configuration;
 	}
@@ -22,12 +20,30 @@ public class ModeDefenseur extends Mode {
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
-
+		int codeSecret = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
+		setCodeSecretJoueur(codeSecret);
+		System.out.println("Nous avons bien reçu votre code secret qui est: " + codeSecret);
+		System.out.println("L'ordinateur va maintenant deviner votre code.");
+		boolean leJoueurAPerdu = false;
+		int nombreEssai = configuration.getNombreEssai();
+		int nombreEssaiRestant = nombreEssai;
+		while (!leJoueurAPerdu && nombreEssaiRestant > 0) {
+			int propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+			System.out.println("L'ordinateur vient de générer une proposition à "
+					+ configuration.getNombredeChiffreCombi() + " chiffres :\n" + propositionMachine + ".");
+			String comp = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
+			nombreEssaiRestant--;
+			if (isPropGagnant(comp)) {
+				System.out.println("J'ai gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
+				leJoueurAPerdu = true;
+			}
+			System.out.println(comp);
+		}
+		System.out.println("J'ai perdu suite à " + nombreEssai + " essais");
 	}
 
 	@Override
 	void afficherLeResultat() {
-		// TODO Auto-generated method stub
 
 	}
 

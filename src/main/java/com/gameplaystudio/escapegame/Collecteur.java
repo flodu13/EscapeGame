@@ -7,7 +7,6 @@ public class Collecteur {
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static int recupererProposition(int taille) {
-
 		boolean valeurCorecte = false;
 		int reponse = 0;
 		do {
@@ -52,5 +51,29 @@ public class Collecteur {
 			}
 		} while (!valeurCorecte);
 		return reponse;
+	}
+
+	public static String recupererComparaison(int taille) {
+		boolean valeurCorecte = false;
+		String saisi = null;
+		do {
+			System.out.print("Entrez votre comparaison: ");
+			saisi = scanner.next();
+			int tailleEntree = saisi.length();
+			if (tailleEntree == taille) {
+				valeurCorecte = true;
+				for (int i = 0; i < taille; i++) {
+					char letter = saisi.charAt(i);
+					if (!(letter == '-' || letter == '+' || letter == '=')) {
+						valeurCorecte = false;
+						System.out.println("Comparaison invalide, saisir +-=");
+						break;
+					}
+				}
+			} else {
+				System.out.println("La taille n'est pas valide");
+			}
+		} while (!valeurCorecte);
+		return saisi;
 	}
 }

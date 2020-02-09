@@ -1,9 +1,6 @@
 package com.gameplaystudio.escapegame;
 
 public class ModeDuel extends Mode {
-
-	private Configuration configuration;
-
 	public ModeDuel(Configuration configuration) {
 		this.configuration = configuration;
 	}
@@ -22,7 +19,23 @@ public class ModeDuel extends Mode {
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
+		System.out
+				.println("Veuillez trouver un code secret à " + configuration.getNombredeChiffreCombi() + " chiffres.");
 
+		int codeSecretMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+		setCodeSecretMachine(codeSecretMachine);
+		System.out.println("L'ordinateur vient de générer un code secret à " + configuration.getNombredeChiffreCombi()
+				+ " chiffres.\n");
+		int propositionJoueur = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
+		System.out.println("Vous avez entré :" + propositionJoueur);
+		String compMachinePourJoueur = getMapping(codeSecretMachine, propositionJoueur);
+		System.out.println(compMachinePourJoueur);
+
+		int propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+		System.out.println("L'ordinateur vient de générer une proposition à " + configuration.getNombredeChiffreCombi()
+				+ " chiffres :\n" + propositionMachine + ".");
+		String compJoueurPourMachine = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
+		System.out.println(compJoueurPourMachine);
 	}
 
 	@Override

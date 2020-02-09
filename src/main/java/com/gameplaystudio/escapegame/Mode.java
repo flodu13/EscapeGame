@@ -2,6 +2,7 @@ package com.gameplaystudio.escapegame;
 
 public abstract class Mode {
 
+	protected Configuration configuration;
 	protected String description;
 	protected int codeSecretMachine;
 
@@ -31,12 +32,12 @@ public abstract class Mode {
 
 	abstract void afficherDescription();
 
-	public void charge() {
+	protected void charge() {
 
 		for (int i = 0; i <= 18; i++) {
 			System.out.print("##");
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -44,4 +45,34 @@ public abstract class Mode {
 		}
 		System.out.println();
 	}
+
+	protected String getMapping(int codeSecret, int proposition) {
+		String result = "";
+		String code = String.valueOf(codeSecret);
+		String prop = String.valueOf(proposition);
+		for (int i = 0; i < configuration.getNombredeChiffreCombi(); i++) {
+			int digitCode = Integer.valueOf(code.charAt(i));
+			int digitProp = Integer.valueOf(prop.charAt(i));
+			if (digitCode == digitProp) {
+				result = result + '=';
+			} else if (digitCode > digitProp) {
+				result = result + "+";
+			} else {
+				result = result + "-";
+			}
+		}
+
+		return result;
+	}
+
+	protected boolean isPropGagnant(String comp) {
+		for (char lettre : comp.toCharArray()) {
+			if (lettre != '=') {
+				return false;
+			}
+		}
+		return true;
+
+	}
+
 }

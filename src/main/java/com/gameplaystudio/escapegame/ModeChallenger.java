@@ -2,8 +2,6 @@ package com.gameplaystudio.escapegame;
 
 public class ModeChallenger extends Mode {
 
-	private Configuration configuration;
-
 	public ModeChallenger(Configuration configuration) {
 		this.configuration = configuration;
 	}
@@ -25,13 +23,28 @@ public class ModeChallenger extends Mode {
 		setCodeSecretMachine(codeSecret);
 		System.out.println("L'ordinateur vient de générer un code secret à " + configuration.getNombredeChiffreCombi()
 				+ " chiffres.\n");
-		int proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
-		System.out.println("Vous avez entré :" + proposition);
+		if (configuration.isModeDeveloppeur()) {
+			System.out.println("Le code secret généré par l'ordinateur est: " + codeSecret);
+		}
+		boolean leJoueurAGagner = false;
+		int nombreEssai = configuration.getNombreEssai();
+		int nombreEssaiRestant = nombreEssai;
+		while (!leJoueurAGagner && nombreEssaiRestant > 0) {
+			int proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
+			String comp = getMapping(codeSecret, proposition);
+			nombreEssaiRestant--;
+			if (isPropGagnant(comp)) {
+				leJoueurAGagner = true;
+				System.out.println("Vous avez gagnez après " + (nombreEssai - nombreEssaiRestant) + " essai(s).");
+			} else {
+				System.out.println("Indication: " + comp);
+			}
+		}
+		System.out.println("Vous avez épuise vos " + nombreEssai + " essais");
 	}
 
 	@Override
 	void afficherLeResultat() {
-		comparaisonCodegenererCodeCodeJoueur();
 
 	}
 
@@ -43,20 +56,4 @@ public class ModeChallenger extends Mode {
 						+ configuration.getNombreEssai() + " essais.");
 	}
 
-	public void comparaisonCodegenererCodeCodeJoueur() {
-
-		String result = "";
-		for (int i = 0; i <= configuration.getNombredeChiffreCombi(); i++) {
-			char digitMachine = Integer.toString(getCodeSecretMachine()).charAt(i);
-			char digitjoueur = Integer.toString(getCodeSecretJoueur()).charAt(i);
-			if (digitMachine == digitjoueur) {
-				result = result + '=';
-			} else if (digitMachine > digitjoueur) {
-				result = result + "-";
-			} else {
-				result = result + "+";
-			}
-		}
-		System.out.println(result);
-	}
 }
