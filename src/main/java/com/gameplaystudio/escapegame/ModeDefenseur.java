@@ -34,17 +34,18 @@ public class ModeDefenseur extends Mode {
 			String comp = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
 			nombreEssaiRestant--;
 			if (isPropGagnant(comp)) {
-				System.out.println("J'ai gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
 				leJoueurAPerdu = true;
 			}
 			System.out.println(comp);
 		}
-		System.out.println("J'ai perdu suite à " + nombreEssai + " essais");
-	}
+		if (leJoueurAPerdu) {
 
-	@Override
-	void afficherLeResultat() {
+			System.out.println("J'ai gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
+		} else {
 
+			System.out.println("J'ai perdu suite à " + nombreEssai + " essais");
+		}
+		afficherReplay();
 	}
 
 	@Override
@@ -52,6 +53,18 @@ public class ModeDefenseur extends Mode {
 		System.out.println("Dans ce mode vous entrez un code aléatoire à " + configuration.getNombredeChiffreCombi()
 				+ " chiffres,\net l'ordinateur doit deviner cette combinaison.\nNB: l'ordinateur à droit à "
 				+ configuration.getNombreEssai() + " essais.");
+	}
+
+	@Override
+	void afficherGagnant(int nombreEssai) {
+		System.out.println("Bravo! Vous avez gagné après " + nombreEssai + " essais.");
+
+	}
+
+	@Override
+	void afficherPerdant(int nombreEssai) {
+		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
+
 	}
 
 }

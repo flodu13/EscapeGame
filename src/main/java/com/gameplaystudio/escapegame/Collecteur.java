@@ -53,6 +53,31 @@ public class Collecteur {
 		return reponse;
 	}
 
+	public static int recupererReplay() {
+
+		boolean valeurCorecte = false;
+		int reponse = 0;
+		System.out.println("Tapez 1 pour rejouer");
+		System.out.println("Tapez 2 pour revenir au menu");
+		System.out.println("Tapez 3 pour quitter");
+		do {
+			System.out.print("Saisir votre choix: ");
+			String saisi = scanner.next();
+			try {
+				reponse = Integer.parseInt(saisi);
+				int tailleEntree = saisi.length();
+				if (tailleEntree == 1 && reponse >= 1 && reponse <= 5) {
+					valeurCorecte = true;
+				} else {
+					System.out.println("Veuillez saisir entre 1 et 5");
+				}
+			} catch (Exception e) {
+				System.out.println("La valeur entrée n'est pas correcte");
+			}
+		} while (!valeurCorecte);
+		return reponse;
+	}
+
 	public static String recupererComparaison(int taille) {
 		boolean valeurCorecte = false;
 		String saisi = null;

@@ -36,12 +36,8 @@ public class ModeDuel extends Mode {
 				+ " chiffres :\n" + propositionMachine + ".");
 		String compJoueurPourMachine = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
 		System.out.println(compJoueurPourMachine);
-	}
 
-	@Override
-	void afficherLeResultat() {
-		// TODO Auto-generated method stub
-
+		afficherReplay();
 	}
 
 	@Override
@@ -52,6 +48,18 @@ public class ModeDuel extends Mode {
 				+ configuration.getNombredeChiffreCombi()
 				+ " chiffres. Vous (joueur) et l'ordinateur jouez tour à tour.\nLe premier à trouver la combinaison a "
 				+ configuration.getNombredeChiffreCombi() + " chiffres a gagné");
+
+	}
+
+	@Override
+	void afficherGagnant(int nombreEssai) {
+		System.out.println("Bravo! Vous avez gagné après " + nombreEssai + " essais.");
+
+	}
+
+	@Override
+	void afficherPerdant(int nombreEssai) {
+		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
 
 	}
 

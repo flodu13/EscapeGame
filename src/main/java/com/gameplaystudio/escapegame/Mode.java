@@ -28,7 +28,9 @@ public abstract class Mode {
 
 	abstract void lancer();
 
-	abstract void afficherLeResultat();
+	abstract void afficherGagnant(int nombreEssai);
+
+	abstract void afficherPerdant(int nombreEssai);
 
 	abstract void afficherDescription();
 
@@ -75,4 +77,13 @@ public abstract class Mode {
 
 	}
 
+	protected void afficherReplay() {
+		int replay = Collecteur.recupererReplay();
+		if (replay == 1) {
+			lancer();
+		} else if (replay == 2) {
+			Main.main(null);
+		}
+
+	}
 }

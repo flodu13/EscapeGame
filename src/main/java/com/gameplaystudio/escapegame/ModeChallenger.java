@@ -35,17 +35,17 @@ public class ModeChallenger extends Mode {
 			nombreEssaiRestant--;
 			if (isPropGagnant(comp)) {
 				leJoueurAGagner = true;
-				System.out.println("Vous avez gagnez après " + (nombreEssai - nombreEssaiRestant) + " essai(s).");
+
 			} else {
 				System.out.println("Indication: " + comp);
 			}
 		}
-		System.out.println("Vous avez épuise vos " + nombreEssai + " essais");
-	}
-
-	@Override
-	void afficherLeResultat() {
-
+		if (!leJoueurAGagner) {
+			afficherPerdant(nombreEssai);
+		} else {
+			afficherGagnant(nombreEssai - nombreEssaiRestant);
+		}
+		afficherReplay();
 	}
 
 	@Override
@@ -54,6 +54,17 @@ public class ModeChallenger extends Mode {
 				"Dans ce mode l'ordinateur va générer un code secret à " + configuration.getNombredeChiffreCombi()
 						+ " chiffres,\net vous(joueur) devez deviner cette combinaison.\nNB: vous avez droit à "
 						+ configuration.getNombreEssai() + " essais.");
+	}
+
+	@Override
+	void afficherGagnant(int nombreEssai) {
+		System.out.println("Bravo! Vous avez gagné après " + nombreEssai + " essais.");
+	}
+
+	@Override
+	void afficherPerdant(int nombreEssai) {
+		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
+		System.out.println("Le code secret était : " + getCodeSecretMachine());
 	}
 
 }
