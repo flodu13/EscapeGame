@@ -51,6 +51,7 @@ public abstract class Mode {
 	protected String getMapping(int codeSecret, int proposition) {
 		String result = "";
 		String code = String.valueOf(codeSecret);
+		// code = "012345";
 		String prop = String.valueOf(proposition);
 		for (int i = 0; i < configuration.getNombredeChiffreCombi(); i++) {
 			int digitCode = Integer.valueOf(code.charAt(i));
@@ -83,6 +84,8 @@ public abstract class Mode {
 			lancer();
 		} else if (replay == 2) {
 			Main.main(null);
+		} else {
+			quitter();
 		}
 
 	}

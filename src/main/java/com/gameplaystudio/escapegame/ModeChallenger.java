@@ -8,7 +8,9 @@ public class ModeChallenger extends Mode {
 
 	@Override
 	void quitter() {
-		// TODO Auto-generated method stub
+		System.out.println("Séquence d'arret du jeu enclenchée");
+
+		System.exit(0);
 
 	}
 

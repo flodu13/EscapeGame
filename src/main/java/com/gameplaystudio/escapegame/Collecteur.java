@@ -28,7 +28,11 @@ public class Collecteur {
 	}
 
 	public static int genereCode(int taille) {
-		return new Random().nextInt((int) Math.pow(10, taille));
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < taille; i++) {
+			sb.append(new Random().nextInt(10));
+		}
+		return Integer.valueOf(sb.toString());
 	}
 
 	public static int recupererModeChoisi() {

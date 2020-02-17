@@ -27,6 +27,7 @@ public class ModeDefenseur extends Mode {
 		boolean leJoueurAPerdu = false;
 		int nombreEssai = configuration.getNombreEssai();
 		int nombreEssaiRestant = nombreEssai;
+
 		while (!leJoueurAPerdu && nombreEssaiRestant > 0) {
 			int propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
 			System.out.println("L'ordinateur vient de générer une proposition à "
