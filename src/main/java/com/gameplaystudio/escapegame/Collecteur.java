@@ -1,6 +1,5 @@
 package com.gameplaystudio.escapegame;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Collecteur {
@@ -28,10 +27,12 @@ public class Collecteur {
 	}
 
 	public static int genereCode(int taille) {
+		System.out.println("chaine des codes: " + taille);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < taille; i++) {
-			sb.append(new Random().nextInt(10));
+			sb.append(String.valueOf((int) (10.0 * Math.random())));
 		}
+		System.out.println("chaine des codes: " + sb.toString());
 		return Integer.valueOf(sb.toString());
 	}
 

@@ -1,5 +1,9 @@
 package com.gameplaystudio.escapegame;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 public abstract class Mode {
 
 	protected Configuration configuration;
@@ -48,6 +52,16 @@ public abstract class Mode {
 		System.out.println();
 	}
 
+	protected void delay(int secondes) {
+
+		try {
+			Thread.sleep(secondes);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	protected String getMapping(int codeSecret, int proposition) {
 		String result = "";
 		String code = String.valueOf(codeSecret);
@@ -88,5 +102,32 @@ public abstract class Mode {
 			quitter();
 		}
 
+	}
+
+	protected int nextProposition(int code, String indication) {
+
+		char[] cde = String.valueOf(code).toCharArray();
+		String proposition = "";
+		char[] ind = String.valueOf(indication).toCharArray();
+
+		Map<Integer, String> chiffreIndication = new HashMap<Integer, String>();
+		for (int i = 0; i < cde.length; i++) {
+			chiffreIndication.put(Integer.valueOf(cde[i]), String.valueOf(ind[i]));
+		}
+		for (Integer key : chiffreIndication.keySet()) {
+			String value = chiffreIndication.get(key);
+			System.out.println("code= " + key + " indication= " + value);
+			if (value.equalsIgnoreCase("=")) {
+				proposition = proposition + key;
+			} else if (value.equalsIgnoreCase("+")) {
+				int newValue = new Random().nextInt((10 - key)) + key + 1;
+				proposition = proposition + newValue;
+			} else {
+				int newValue = new Random().nextInt((key));
+				proposition = proposition + newValue;
+			}
+		}
+		System.out.println("code= " + proposition + " indication= " + proposition);
+		return Integer.valueOf(proposition);
 	}
 }

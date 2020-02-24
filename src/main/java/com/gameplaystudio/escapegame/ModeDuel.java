@@ -36,7 +36,6 @@ public class ModeDuel extends Mode {
 				+ " chiffres :\n" + propositionMachine + ".");
 		String compJoueurPourMachine = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
 		System.out.println(compJoueurPourMachine);
-
 		afficherReplay();
 	}
 

@@ -2,6 +2,9 @@ package com.gameplaystudio.escapegame;
 
 public class ModeDefenseur extends Mode {
 
+	private int codePrecedent;
+	private String indicationPrecedent;
+
 	public ModeDefenseur(Configuration configuration) {
 		this.configuration = configuration;
 	}
@@ -29,22 +32,38 @@ public class ModeDefenseur extends Mode {
 		int nombreEssaiRestant = nombreEssai;
 
 		while (!leJoueurAPerdu && nombreEssaiRestant > 0) {
-			int propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
-			System.out.println("L'ordinateur vient de générer une proposition à "
-					+ configuration.getNombredeChiffreCombi() + " chiffres :\n" + propositionMachine + ".");
-			String comp = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
+			int propositionMachine;
+			String comp = "";
+			if (nombreEssaiRestant == nombreEssai) {
+				propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+				codePrecedent = propositionMachine;
+				delay(1000 * 5);
+				System.out
+						.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine + ".");
+				comp = getMapping(codeSecret, propositionMachine);
+				indicationPrecedent = comp;
+				System.out.println("Indication: " + comp);
+			} else {
+				int recup = nextProposition(codePrecedent, indicationPrecedent);
+				codePrecedent = recup;
+				delay(1000 * 5);
+				System.out.println("L'ordinateur vient de générer la proposition suivante: " + recup + ".");
+				comp = getMapping(codeSecret, recup);
+				indicationPrecedent = comp;
+				System.out.println("Indication: " + comp);
+			}
+
 			nombreEssaiRestant--;
 			if (isPropGagnant(comp)) {
 				leJoueurAPerdu = true;
 			}
-			System.out.println(comp);
 		}
 		if (leJoueurAPerdu) {
 
-			System.out.println("J'ai gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
+			System.out.println("Vous avez gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
 		} else {
 
-			System.out.println("J'ai perdu suite à " + nombreEssai + " essais");
+			System.out.println(" L'ordinateur à perdu suite à " + nombreEssai + " essais");
 		}
 		afficherReplay();
 	}
