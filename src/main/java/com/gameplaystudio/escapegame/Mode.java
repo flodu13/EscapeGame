@@ -1,30 +1,28 @@
 package com.gameplaystudio.escapegame;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public abstract class Mode {
 
 	protected Configuration configuration;
 	protected String description;
-	protected int codeSecretMachine;
+	protected String codeSecretMachine;
 
-	public int getCodeSecretMachine() {
+	public String getCodeSecretMachine() {
 		return codeSecretMachine;
 	}
 
-	public void setCodeSecretMachine(int codeSecretMachine) {
+	public void setCodeSecretMachine(String codeSecretMachine) {
 		this.codeSecretMachine = codeSecretMachine;
 	}
 
-	protected int codeSecretJoueur;
+	protected String codeSecretJoueur;
 
-	public int getCodeSecretJoueur() {
+	public String getCodeSecretJoueur() {
 		return codeSecretJoueur;
 	}
 
-	public void setCodeSecretJoueur(int codeSecretJoueur) {
+	public void setCodeSecretJoueur(String codeSecretJoueur) {
 		this.codeSecretJoueur = codeSecretJoueur;
 	}
 
@@ -62,14 +60,11 @@ public abstract class Mode {
 		}
 	}
 
-	protected String getMapping(int codeSecret, int proposition) {
+	protected String getMapping(String codeSecret, String proposition) {
 		String result = "";
-		String code = String.valueOf(codeSecret);
-		// code = "012345";
-		String prop = String.valueOf(proposition);
 		for (int i = 0; i < configuration.getNombredeChiffreCombi(); i++) {
-			int digitCode = Integer.valueOf(code.charAt(i));
-			int digitProp = Integer.valueOf(prop.charAt(i));
+			int digitCode = Integer.valueOf(codeSecret.charAt(i));
+			int digitProp = Integer.valueOf(proposition.charAt(i));
 			if (digitCode == digitProp) {
 				result = result + '=';
 			} else if (digitCode > digitProp) {
@@ -104,30 +99,32 @@ public abstract class Mode {
 
 	}
 
-	protected int nextProposition(int code, String indication) {
-
-		char[] cde = String.valueOf(code).toCharArray();
-		String proposition = "";
-		char[] ind = String.valueOf(indication).toCharArray();
-
-		Map<Integer, String> chiffreIndication = new HashMap<Integer, String>();
-		for (int i = 0; i < cde.length; i++) {
-			chiffreIndication.put(Integer.valueOf(cde[i]), String.valueOf(ind[i]));
-		}
-		for (Integer key : chiffreIndication.keySet()) {
-			String value = chiffreIndication.get(key);
-			System.out.println("code= " + key + " indication= " + value);
-			if (value.equalsIgnoreCase("=")) {
-				proposition = proposition + key;
-			} else if (value.equalsIgnoreCase("+")) {
-				int newValue = new Random().nextInt((10 - key)) + key + 1;
-				proposition = proposition + newValue;
-			} else {
-				int newValue = new Random().nextInt((key));
-				proposition = proposition + newValue;
+	protected String nextProposition(String code, String indication) {
+		char[] indications = String.valueOf(indication).toCharArray();
+		String chiffres = String.valueOf(code);
+		
+		StringBuilder proposition = new StringBuilder();
+		for (int i = 0; i < indications.length; i++) {
+			int chiffre = Character.digit(chiffres.charAt(i), 10);
+			String indicatif = String.valueOf(indications[i]);
+			int newValue;
+			if (indicatif.equalsIgnoreCase("=")) {
+				proposition.append(chiffre);
+			} else if (indicatif.equalsIgnoreCase("+")) {
+				
+				int min = (chiffre+1);
+				int max = 10;
+				newValue = new Random().nextInt((max - min)) + min;
+				proposition.append(newValue);
+			} else if (indicatif.equalsIgnoreCase("-")) {
+				newValue = new Random().nextInt((chiffre));
+				proposition.append(newValue);
 			}
+
 		}
-		System.out.println("code= " + proposition + " indication= " + proposition);
-		return Integer.valueOf(proposition);
+	
+		return proposition.toString();
 	}
+	
+	
 }

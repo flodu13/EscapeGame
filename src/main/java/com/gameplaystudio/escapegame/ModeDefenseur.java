@@ -2,7 +2,7 @@ package com.gameplaystudio.escapegame;
 
 public class ModeDefenseur extends Mode {
 
-	private int codePrecedent;
+	private String codePrecedent;
 	private String indicationPrecedent;
 
 	public ModeDefenseur(Configuration configuration) {
@@ -23,7 +23,7 @@ public class ModeDefenseur extends Mode {
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
-		int codeSecret = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
+		String codeSecret = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi(), true);
 		setCodeSecretJoueur(codeSecret);
 		System.out.println("Nous avons bien reçu votre code secret qui est: " + codeSecret);
 		System.out.println("L'ordinateur va maintenant deviner votre code.");
@@ -32,22 +32,22 @@ public class ModeDefenseur extends Mode {
 		int nombreEssaiRestant = nombreEssai;
 
 		while (!leJoueurAPerdu && nombreEssaiRestant > 0) {
-			int propositionMachine;
+			String propositionMachine;
 			String comp = "";
 			if (nombreEssaiRestant == nombreEssai) {
 				propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
 				codePrecedent = propositionMachine;
 				delay(1000 * 5);
 				System.out
-						.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine + ".");
+						.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine );
 				comp = getMapping(codeSecret, propositionMachine);
 				indicationPrecedent = comp;
 				System.out.println("Indication: " + comp);
 			} else {
-				int recup = nextProposition(codePrecedent, indicationPrecedent);
+				String recup = nextProposition(codePrecedent, indicationPrecedent);
 				codePrecedent = recup;
 				delay(1000 * 5);
-				System.out.println("L'ordinateur vient de générer la proposition suivante: " + recup + ".");
+				System.out.println("L'ordinateur vient de générer la proposition suivante: " + recup );
 				comp = getMapping(codeSecret, recup);
 				indicationPrecedent = comp;
 				System.out.println("Indication: " + comp);
@@ -60,7 +60,7 @@ public class ModeDefenseur extends Mode {
 		}
 		if (leJoueurAPerdu) {
 
-			System.out.println("Vous avez gagné en " + (nombreEssai - nombreEssaiRestant) + " essais");
+			System.out.println("L'ordinateur à gagner " + (nombreEssai - nombreEssaiRestant) + " essais");
 		} else {
 
 			System.out.println(" L'ordinateur à perdu suite à " + nombreEssai + " essais");

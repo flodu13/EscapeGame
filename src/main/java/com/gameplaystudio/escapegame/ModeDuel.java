@@ -1,41 +1,83 @@
 package com.gameplaystudio.escapegame;
 
 public class ModeDuel extends Mode {
+
+	private String codePrecedent;
+	private String indicationPrecedent;
+
 	public ModeDuel(Configuration configuration) {
 		this.configuration = configuration;
 	}
 
 	@Override
 	void quitter() {
-		// TODO Auto-generated method stub
-
+		System.out.println("Séquence d'arret du jeu enclenchée");
+		System.exit(0);
 	}
 
 	@Override
 	void lancer() {
 		System.out.println("Lancement du mode duel");
 		charge();
-
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
-		System.out
-				.println("Veuillez trouver un code secret à " + configuration.getNombredeChiffreCombi() + " chiffres.");
+		String codeSecretJoueur = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi(), true);
+		System.out.println("Nous avons bien reçu votre code secret qui est: " + codeSecretJoueur);
+		System.out.println("L'ordinateur va maintenant générer son code secret.");
+		setCodeSecretJoueur(codeSecretJoueur);
+		String codeSecret = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+		setCodeSecretMachine(codeSecret);
+		System.out.println("L'ordinateur a déjà générer son code secret.");
 
-		int codeSecretMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
-		setCodeSecretMachine(codeSecretMachine);
-		System.out.println("L'ordinateur vient de générer un code secret à " + configuration.getNombredeChiffreCombi()
-				+ " chiffres.\n");
-		int propositionJoueur = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
-		System.out.println("Vous avez entré :" + propositionJoueur);
-		String compMachinePourJoueur = getMapping(codeSecretMachine, propositionJoueur);
-		System.out.println(compMachinePourJoueur);
+		boolean leJoueurAPerdu = false;
+		boolean machineAPerdu = false;
+		boolean tourDuJoueur = false;
+		int nombreEssai = configuration.getNombreEssai();
+		int nombreEssaiRestantDeLaMachine = nombreEssai;
+		int nombreEssaiRestantDuJoueur = nombreEssai;
 
-		int propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
-		System.out.println("L'ordinateur vient de générer une proposition à " + configuration.getNombredeChiffreCombi()
-				+ " chiffres :\n" + propositionMachine + ".");
-		String compJoueurPourMachine = Collecteur.recupererComparaison(configuration.getNombredeChiffreCombi());
-		System.out.println(compJoueurPourMachine);
+		while (!leJoueurAPerdu && !machineAPerdu
+				&& (nombreEssaiRestantDeLaMachine > 0 || nombreEssaiRestantDuJoueur > 0)) {
+			if (!tourDuJoueur) {
+				String propositionMachine;
+				if (nombreEssaiRestantDeLaMachine == nombreEssai) {
+					propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+				} else {
+					propositionMachine = nextProposition(codePrecedent, indicationPrecedent);
+				}
+				codePrecedent = propositionMachine;
+				delay(1000 * 5);
+				System.out.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine);
+				String comp = getMapping(codeSecretJoueur, propositionMachine);
+				indicationPrecedent = comp;
+				System.out.println("Indication pour ordinateur: " + comp);
+
+				nombreEssaiRestantDeLaMachine--;
+				if (isPropGagnant(comp)) {
+					leJoueurAPerdu = true;
+				}
+				tourDuJoueur = true;
+			} else {
+				String proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi(), false);
+				String comp = getMapping(codeSecretMachine, proposition);
+				nombreEssaiRestantDuJoueur--;
+				if (isPropGagnant(comp)) {
+					machineAPerdu = true;
+				} else {
+					System.out.println("Indication pour joueur: " + comp);
+				}
+				tourDuJoueur = false;
+			}
+		}
+		if (leJoueurAPerdu) {
+			System.out.println("L'ordinateur à gagner " + (nombreEssai - nombreEssaiRestantDeLaMachine) + " essais");
+		} else if (machineAPerdu) {
+			System.out.println("Le joueur à gagner " + (nombreEssai - nombreEssaiRestantDuJoueur) + " essais");
+		} else {
+			System.out.println("L'ordinateur et le joueur ont perdu suite à " + nombreEssai + " essais");
+		}
+
 		afficherReplay();
 	}
 

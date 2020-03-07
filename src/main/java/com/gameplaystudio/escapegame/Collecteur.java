@@ -1,18 +1,24 @@
 package com.gameplaystudio.escapegame;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Collecteur {
 	private static Scanner scanner = new Scanner(System.in);
 
-	public static int recupererProposition(int taille) {
+	public static String recupererProposition(int taille, boolean isSecretCode) {
 		boolean valeurCorecte = false;
-		int reponse = 0;
+		String saisi;
 		do {
-			System.out.print("Entrez votre proposition: ");
-			String saisi = scanner.next();
+			if (isSecretCode) {
+				System.out.print("Entrez votre code secret: ");
+			} else {
+				System.out.print("Entrez votre proposition: ");
+			}
+			
+			saisi = scanner.next();
 			try {
-				reponse = Integer.parseInt(saisi);
+				Integer.valueOf(saisi);
 				int tailleEntree = saisi.length();
 				if (tailleEntree == taille) {
 					valeurCorecte = true;
@@ -23,17 +29,15 @@ public class Collecteur {
 				System.out.println("La proposition n'est pas correcte");
 			}
 		} while (!valeurCorecte);
-		return reponse;
+		return saisi;
 	}
 
-	public static int genereCode(int taille) {
-		System.out.println("chaine des codes: " + taille);
+	public static String genereCode(int taille) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < taille; i++) {
-			sb.append(String.valueOf((int) (10.0 * Math.random())));
+			sb.append(String.valueOf((new Random().nextInt(10))));
 		}
-		System.out.println("chaine des codes: " + sb.toString());
-		return Integer.valueOf(sb.toString());
+		return sb.toString();
 	}
 
 	public static int recupererModeChoisi() {

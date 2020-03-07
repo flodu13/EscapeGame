@@ -9,7 +9,6 @@ public class ModeChallenger extends Mode {
 	@Override
 	void quitter() {
 		System.out.println("Séquence d'arret du jeu enclenchée");
-
 		System.exit(0);
 
 	}
@@ -21,7 +20,7 @@ public class ModeChallenger extends Mode {
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
-		int codeSecret = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+		String codeSecret = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
 		setCodeSecretMachine(codeSecret);
 		System.out.println("L'ordinateur vient de générer un code secret à " + configuration.getNombredeChiffreCombi()
 				+ " chiffres.\n");
@@ -32,7 +31,7 @@ public class ModeChallenger extends Mode {
 		int nombreEssai = configuration.getNombreEssai();
 		int nombreEssaiRestant = nombreEssai;
 		while (!leJoueurAGagner && nombreEssaiRestant > 0) {
-			int proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi());
+			String proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi(), false);
 			String comp = getMapping(codeSecret, proposition);
 			nombreEssaiRestant--;
 			if (isPropGagnant(comp)) {
