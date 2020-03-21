@@ -1,9 +1,9 @@
 # EscapeGame
-##Compilation de l'application 
+## Compilation de l'application 
 
 Afin de compiler l'application, nous devons nous placer dans le répertoire target correspondant à l'application. Puis une fois que l'on est positionné dans le fichier target nous pouvons alors lancer la commande java -jar + le fichier jar concerné dans mon cas java -jar recherche-combinaison-0.0.1-SNAPSHOT.jar
 
-##Lancement de l'application 
+## Lancement de l'application 
  
 Trois différents modes sont disponible dans cette application 
 
