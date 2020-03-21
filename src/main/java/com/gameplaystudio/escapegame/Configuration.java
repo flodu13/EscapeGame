@@ -102,6 +102,5 @@ public class Configuration {
         } catch (IOException io) {
             io.printStackTrace();
         }
-
 	}
 }

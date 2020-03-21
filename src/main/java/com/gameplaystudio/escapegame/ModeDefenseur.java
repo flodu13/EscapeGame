@@ -84,7 +84,6 @@ public class ModeDefenseur extends Mode {
 	@Override
 	void afficherPerdant(int nombreEssai) {
 		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
-
 	}
 
 }
