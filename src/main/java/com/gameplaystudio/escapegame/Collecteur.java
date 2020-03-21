@@ -15,7 +15,7 @@ public class Collecteur {
 			} else {
 				System.out.print("Entrez votre proposition: ");
 			}
-			
+
 			saisi = scanner.next();
 			try {
 				Integer.valueOf(saisi);
@@ -109,5 +109,16 @@ public class Collecteur {
 			}
 		} while (!valeurCorecte);
 		return saisi;
+	}
+
+	public static int recupererParametreEntier(String message) {
+		System.out.print(message);
+		String saisi = scanner.next();
+		return Integer.parseInt(saisi);
+	}
+	public static boolean recupererParametreBoolean(String message) {
+		System.out.print(message);
+		String saisi = scanner.next();
+		return Boolean.valueOf(saisi);
 	}
 }

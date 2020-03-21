@@ -65,7 +65,13 @@ public class Jeu {
 		} else if (mode == 3) {
 			currentMode = new ModeDuel(configuration);
 		} else if (mode == 4) {
-			System.out.println("Modification des paramètres du jeu");
+			int taille = Collecteur.recupererParametreEntier("Nouvelle taille de la combinaison: ");
+			int nbEssai = Collecteur.recupererParametreEntier("Nombre d'essai: ");
+			boolean debug = Collecteur.recupererParametreBoolean("Activer Mode débug ?: ");
+			boolean description = Collecteur.recupererParametreBoolean("Afficher description ?: ");
+			
+			configuration.saveConfiguration(taille, nbEssai, debug, description);
+			System.out.println("Les paramètres ont bien été modifié");
 		} else if (mode == 5) {
 
 			quitter();
