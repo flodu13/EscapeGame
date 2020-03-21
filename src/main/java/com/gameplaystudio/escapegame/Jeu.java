@@ -9,7 +9,7 @@ public class Jeu {
 	public Jeu() {
 		this.name = "escape game";
 		this.configuration = new Configuration();
-		this.description = "Ce jeu principe est de résoudre, en équipe, une série d’énigmes scénarisées pour pouvoir sortir de la pièce dans le temps imparti.\r\n";
+		this.description = "Le principe de ce jeu est de résoudre, en équipe, une série d’énigmes scénarisées pour pouvoir sortir de la pièce dans le temps imparti.\r\n";
 	}
 
 	public void lancer() {
