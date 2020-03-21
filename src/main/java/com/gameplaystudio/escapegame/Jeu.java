@@ -73,7 +73,6 @@ public class Jeu {
 			configuration.saveConfiguration(taille, nbEssai, debug, description);
 			System.out.println("Les paramètres ont bien été modifié");
 		} else if (mode == 5) {
-
 			quitter();
 		}
 		if (currentMode != null) {
