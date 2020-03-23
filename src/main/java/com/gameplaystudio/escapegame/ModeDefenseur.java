@@ -85,4 +85,5 @@ public class ModeDefenseur extends Mode {
 	void afficherPerdant(int nombreEssai) {
 		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
 	}
+	
 }
