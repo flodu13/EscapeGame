@@ -103,5 +103,4 @@ public class ModeDuel extends Mode {
 		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
 
 	}
-
 }
