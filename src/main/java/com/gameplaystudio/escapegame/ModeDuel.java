@@ -1,9 +1,13 @@
 package com.gameplaystudio.escapegame;
 
+import org.apache.log4j.Logger;
+
 public class ModeDuel extends Mode {
 
 	private String codePrecedent;
 	private String indicationPrecedent;
+	
+	static Logger logger = Logger.getLogger(ModeDuel.class);
 
 	public ModeDuel(Configuration configuration) {
 		this.configuration = configuration;
@@ -11,12 +15,14 @@ public class ModeDuel extends Mode {
 
 	@Override
 	void quitter() {
+		logger.info("Sortie du mode duel");
 		System.out.println("Séquence d'arret du jeu enclenchée");
 		System.exit(0);
 	}
 
 	@Override
 	void lancer() {
+		logger.info("Lancement du mode duel");
 		System.out.println("Lancement du mode duel");
 		charge();
 		if (configuration.isShowDescription()) {
@@ -29,7 +35,9 @@ public class ModeDuel extends Mode {
 		String codeSecret = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
 		setCodeSecretMachine(codeSecret);
 		System.out.println("L'ordinateur a déjà générer son code secret.");
-
+		if (configuration.isModeDeveloppeur()) {
+			System.out.println("Le code secret généré par l'ordinateur est: " + codeSecret);
+		}
 		boolean leJoueurAPerdu = false;
 		boolean machineAPerdu = false;
 		boolean tourDuJoueur = false;
@@ -103,4 +111,5 @@ public class ModeDuel extends Mode {
 		System.out.println("Vous avez perdu après " + nombreEssai + " essais.");
 
 	}
+	
 }

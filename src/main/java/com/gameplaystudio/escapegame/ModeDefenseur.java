@@ -1,9 +1,12 @@
 package com.gameplaystudio.escapegame;
 
+import org.apache.log4j.Logger;
+
 public class ModeDefenseur extends Mode {
 
 	private String codePrecedent;
 	private String indicationPrecedent;
+	static Logger logger = Logger.getLogger(ModeDefenseur.class);
 
 	public ModeDefenseur(Configuration configuration) {
 		this.configuration = configuration;
@@ -11,12 +14,14 @@ public class ModeDefenseur extends Mode {
 
 	@Override
 	void quitter() {
-		// TODO Auto-generated method stub
+		logger.info("Sortie du mode défenseur");
+		
 
 	}
 
 	@Override
 	void lancer() {
+		logger.info("Lancement du mode défenseur");
 		System.out.println("Lancement du mode défenseur");
 		charge();
 

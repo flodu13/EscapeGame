@@ -1,10 +1,14 @@
 package com.gameplaystudio.escapegame;
 
+import org.apache.log4j.Logger;
+
 public class Jeu {
 	private String name;
 	private String description;
 	private Mode currentMode;
 	private Configuration configuration;
+
+	static Logger logger = Logger.getLogger(Jeu.class);
 
 	public Jeu() {
 		this.name = "escape game";
@@ -13,7 +17,7 @@ public class Jeu {
 	}
 
 	public void lancer() {
-
+		logger.info("Lancement de l'application");
 		System.out.println("=====================================");
 		System.out.println("= Bienvenue dans le jeu " + name + " =");
 		System.out.println("=====================================");
@@ -22,12 +26,14 @@ public class Jeu {
 	}
 
 	public void quitter() {
+		logger.info("Sortie de l'application");
 		System.out.println("Séquence d'arret du jeu enclenchée");
 
 		System.exit(0);
 	}
 
 	public void changerMode() {
+		logger.info("Changement de mode");
 		System.out.println("changement de mode");
 	}
 
@@ -69,7 +75,7 @@ public class Jeu {
 			int nbEssai = Collecteur.recupererParametreEntier("Nombre d'essai: ");
 			boolean debug = Collecteur.recupererParametreBoolean("Activer Mode débug ?: ");
 			boolean description = Collecteur.recupererParametreBoolean("Afficher description ?: ");
-			
+
 			configuration.saveConfiguration(taille, nbEssai, debug, description);
 			System.out.println("Les paramètres ont bien été modifié");
 		} else if (mode == 5) {

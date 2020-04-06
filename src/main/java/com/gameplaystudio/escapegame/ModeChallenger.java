@@ -1,13 +1,19 @@
 package com.gameplaystudio.escapegame;
 
+import org.apache.log4j.Logger;
+
 public class ModeChallenger extends Mode {
 
+	static Logger logger = Logger.getLogger(ModeChallenger.class);
+
+	
 	public ModeChallenger(Configuration configuration) {
 		this.configuration = configuration;
 	}
 
 	@Override
 	void quitter() {
+		logger.info("Sortie du mode challenger");
 		System.out.println("Séquence d'arret du jeu enclenchée");
 		System.exit(0);
 
@@ -15,6 +21,7 @@ public class ModeChallenger extends Mode {
 
 	@Override
 	void lancer() {
+		logger.info("Lancement du mode challenger");
 		System.out.println("Lancement du mode challenger");
 		charge();
 		if (configuration.isShowDescription()) {
