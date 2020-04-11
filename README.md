@@ -9,7 +9,7 @@ Si l'ordinateur à trouver la combinaison de x chiffre du joueur dans la limite 
 - Le mode challenger = Tapez 2 pour lancer le mode challenger. Dans ce mode, l'ordinateur déterminer une combinaison de x chiffres. Le joueur doit trouver cette combinaison dans la limite du nombre d'essais. 
 Si le joueur à trouver la combinaison dans la limite du nombre d'essais, le joueur à gagner. Dans le cas contraire l'ordinateur à gagner car le joueur n'aura pas trouver la combinaison dans la limite du nombre d'essais.
 
-Le mode duel = Tapez 3 pour lancer le mode duel. Ce mode permet au joueur et à l'ordinateur de jouer tour à tour. Le premier à trouver la combinaison de l'autre à gagner.
+- Le mode duel = Tapez 3 pour lancer le mode duel. Ce mode permet au joueur et à l'ordinateur de jouer tour à tour. Le premier à trouver la combinaison de l'autre à gagner.
 
 L'application est configurable via le fichier config.properties. 
 Ce fichier permet de passer en mode développeur (débug) par conséquent nous avons accès à la solution dès le début du jeu. Nous pouvons également changer la taille de la combinaison ainsi que le nombre d'essai. 

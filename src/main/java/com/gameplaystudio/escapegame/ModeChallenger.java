@@ -8,7 +8,7 @@ public class ModeChallenger extends Mode {
 
 	
 	public ModeChallenger(Configuration configuration) {
-		this.configuration = configuration;
+		super(configuration);
 	}
 
 	@Override
@@ -23,7 +23,6 @@ public class ModeChallenger extends Mode {
 	void lancer() {
 		logger.info("Lancement du mode challenger");
 		System.out.println("Lancement du mode challenger");
-		charge();
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}

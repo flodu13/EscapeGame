@@ -9,7 +9,7 @@ public class ModeDefenseur extends Mode {
 	static Logger logger = Logger.getLogger(ModeDefenseur.class);
 
 	public ModeDefenseur(Configuration configuration) {
-		this.configuration = configuration;
+		super(configuration);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class ModeDefenseur extends Mode {
 	void lancer() {
 		logger.info("Lancement du mode défenseur");
 		System.out.println("Lancement du mode défenseur");
-		charge();
+		//charge();
 
 		if (configuration.isShowDescription()) {
 			afficherDescription();
@@ -39,26 +39,22 @@ public class ModeDefenseur extends Mode {
 		while (!leJoueurAPerdu && nombreEssaiRestant > 0) {
 			String propositionMachine;
 			String comp = "";
-			if (nombreEssaiRestant == nombreEssai) {
-				propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
+				propositionMachine = nextProposition(codePrecedent, indicationPrecedent);
+			
 				codePrecedent = propositionMachine;
-				delay(1000 * 5);
 				System.out
 						.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine );
-				comp = getMapping(codeSecret, propositionMachine);
+				comp = Collecteur.recupererComparaison(getMapping(codeSecret, propositionMachine), configuration.getNombredeChiffreCombi());
+			
 				indicationPrecedent = comp;
 				System.out.println("Indication: " + comp);
-			} else {
-				String recup = nextProposition(codePrecedent, indicationPrecedent);
-				codePrecedent = recup;
-				delay(1000 * 5);
-				System.out.println("L'ordinateur vient de générer la proposition suivante: " + recup );
-				comp = getMapping(codeSecret, recup);
-				indicationPrecedent = comp;
-				System.out.println("Indication: " + comp);
-			}
 
 			nombreEssaiRestant--;
+			
+		    	
+		    	
+
+			
 			if (isPropGagnant(comp)) {
 				leJoueurAPerdu = true;
 			}

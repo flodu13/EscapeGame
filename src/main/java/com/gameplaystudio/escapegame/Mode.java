@@ -7,6 +7,12 @@ public abstract class Mode {
 	protected Configuration configuration;
 	protected String description;
 	protected String codeSecretMachine;
+	private GenerateCode generateCode;
+
+	protected Mode(Configuration configuration) {
+		this.configuration = configuration;
+		generateCode = new GenerateCode(configuration.getNombredeChiffreCombi());
+	}
 
 	public String getCodeSecretMachine() {
 		return codeSecretMachine;
@@ -35,30 +41,6 @@ public abstract class Mode {
 	abstract void afficherPerdant(int nombreEssai);
 
 	abstract void afficherDescription();
-
-	protected void charge() {
-
-		for (int i = 0; i <= 18; i++) {
-			System.out.print("##");
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		System.out.println();
-	}
-
-	protected void delay(int secondes) {
-
-		try {
-			Thread.sleep(secondes);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	protected String getMapping(String codeSecret, String proposition) {
 		String result = "";
@@ -100,31 +82,7 @@ public abstract class Mode {
 	}
 
 	protected String nextProposition(String code, String indication) {
-		char[] indications = String.valueOf(indication).toCharArray();
-		String chiffres = String.valueOf(code);
-		
-		StringBuilder proposition = new StringBuilder();
-		for (int i = 0; i < indications.length; i++) {
-			int chiffre = Character.digit(chiffres.charAt(i), 10);
-			String indicatif = String.valueOf(indications[i]);
-			int newValue;
-			if (indicatif.equalsIgnoreCase("=")) {
-				proposition.append(chiffre);
-			} else if (indicatif.equalsIgnoreCase("+")) {
-				
-				int min = (chiffre+1);
-				int max = 10;
-				newValue = new Random().nextInt((max - min)) + min;
-				proposition.append(newValue);
-			} else if (indicatif.equalsIgnoreCase("-")) {
-				newValue = new Random().nextInt((chiffre));
-				proposition.append(newValue);
-			}
+		return generateCode.generateCode(code, indication);
 
-		}
-	
-		return proposition.toString();
 	}
-	
-	
 }

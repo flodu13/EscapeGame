@@ -87,7 +87,7 @@ public class Collecteur {
 		return reponse;
 	}
 
-	public static String recupererComparaison(int taille) {
+	public static String recupererComparaison(String expected, int taille) {
 		boolean valeurCorecte = false;
 		String saisi = null;
 		do {
@@ -107,7 +107,7 @@ public class Collecteur {
 			} else {
 				System.out.println("La taille n'est pas valide");
 			}
-		} while (!valeurCorecte);
+		} while (!valeurCorecte || !expected.equals(saisi));
 		return saisi;
 	}
 

@@ -10,7 +10,7 @@ public class ModeDuel extends Mode {
 	static Logger logger = Logger.getLogger(ModeDuel.class);
 
 	public ModeDuel(Configuration configuration) {
-		this.configuration = configuration;
+		super(configuration);
 	}
 
 	@Override
@@ -24,7 +24,6 @@ public class ModeDuel extends Mode {
 	void lancer() {
 		logger.info("Lancement du mode duel");
 		System.out.println("Lancement du mode duel");
-		charge();
 		if (configuration.isShowDescription()) {
 			afficherDescription();
 		}
@@ -46,18 +45,16 @@ public class ModeDuel extends Mode {
 		int nombreEssaiRestantDuJoueur = nombreEssai;
 
 		while (!leJoueurAPerdu && !machineAPerdu
-				&& (nombreEssaiRestantDeLaMachine > 0 || nombreEssaiRestantDuJoueur > 0)) {
+				&& (nombreEssaiRestantDeLaMachine > 0 || nombreEssaiRestantDuJoueur > 0)) 
+		
+		{
+			String comp = "";
 			if (!tourDuJoueur) {
 				String propositionMachine;
-				if (nombreEssaiRestantDeLaMachine == nombreEssai) {
-					propositionMachine = Collecteur.genereCode(configuration.getNombredeChiffreCombi());
-				} else {
 					propositionMachine = nextProposition(codePrecedent, indicationPrecedent);
-				}
 				codePrecedent = propositionMachine;
-				delay(1000 * 5);
 				System.out.println("L'ordinateur vient de générer la proposition suivante: " + propositionMachine);
-				String comp = getMapping(codeSecretJoueur, propositionMachine);
+				comp = Collecteur.recupererComparaison(getMapping(codeSecretJoueur, propositionMachine), configuration.getNombredeChiffreCombi());
 				indicationPrecedent = comp;
 				System.out.println("Indication pour ordinateur: " + comp);
 
@@ -68,7 +65,7 @@ public class ModeDuel extends Mode {
 				tourDuJoueur = true;
 			} else {
 				String proposition = Collecteur.recupererProposition(configuration.getNombredeChiffreCombi(), false);
-				String comp = getMapping(codeSecretMachine, proposition);
+				comp = getMapping(codeSecret, proposition);
 				nombreEssaiRestantDuJoueur--;
 				if (isPropGagnant(comp)) {
 					machineAPerdu = true;

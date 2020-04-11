@@ -9,6 +9,7 @@ public class Main {
 		int choix = Collecteur.recupererModeChoisi();
 		jeu.changerMode(choix);
 
+		 
 	}
 
 }
