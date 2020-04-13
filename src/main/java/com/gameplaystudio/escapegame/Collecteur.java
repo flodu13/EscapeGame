@@ -27,6 +27,7 @@ public class Collecteur {
 				}
 			} catch (Exception e) {
 				System.out.println("La proposition n'est pas correcte");
+				
 			}
 		} while (!valeurCorecte);
 		return saisi;
