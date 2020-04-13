@@ -15,21 +15,21 @@ L'application est configurable via le fichier config.properties.
 Ce fichier permet de passer en mode développeur (débug) par conséquent nous avons accès à la solution dès le début du jeu. Nous pouvons également changer la taille de la combinaison ainsi que le nombre d'essai. 
 
 
-**Pre-requis** 
+## Pre-requis 
 
-JDK java 8 installé sur la machine
-Maven : installé sur la machine
+- JDK java 8 installé sur la machine
+- Maven : installé sur la machine
 
 
 ## Compilation de l'application 
 
 Dans un premier temps il est necessaire de cloner le projet https://github.com/flodu13/EscapeGame.git. 
-Puis ouvrir l'invite de commande et se positioner où le programme réside, copier le path puis taper cd dans l'invite de commande est coller le path. 
-Une fois positionner dans le répertoire approprié il faudra générer le jar via la commande mvn clean package 
+Puis ouvrir l'invite de commande et se positioner où le programme réside, copier le path puis taper cd dans l'invite de commande et coller le path. 
+Une fois positionner dans le répertoire approprié il faudra générer le jar via la commande **mvn clean package**. 
 
 
 ## Lancement de l'application 
  
-Afin de lancer l'appolication, il est nécéssaire d'exécuter le fichier jar avec la commande java -jar target\... Exemple C:\Users\iotbo\git\EscapeGame>java -jar target\my-project-name-jar-with-dependencies.jar. 
+Afin de lancer l'appolication, il est nécéssaire d'exécuter le fichier jar avec la commande **java -jar target\...** Exemple C:\Users\iotbo\git\EscapeGame>java -jar target\my-project-name-jar-with-dependencies.jar. 
 L'application se lance alors, vous devez sélectionné le mode de jeu choisi et jouer. 
 
