@@ -1,10 +1,12 @@
 package com.gameplaystudio.escapegame;
 
+import org.apache.log4j.Logger;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Collecteur {
 	private static Scanner scanner = new Scanner(System.in);
+	static Logger logger = Logger.getLogger(Collecteur.class);
 
 	public static String recupererProposition(int taille, boolean isSecretCode) {
 		boolean valeurCorecte = false;
@@ -26,6 +28,7 @@ public class Collecteur {
 					System.out.println("La taille n'est pas valide");
 				}
 			} catch (Exception e) {
+				logger.info(e);
 				System.out.println("La proposition n'est pas correcte");
 				
 			}
@@ -58,6 +61,7 @@ public class Collecteur {
 				}
 			} catch (Exception e) {
 				System.out.println("La valeur entrée n'est pas correcte");
+				logger.info(e);
 			}
 		} while (!valeurCorecte);
 		return reponse;
@@ -83,6 +87,7 @@ public class Collecteur {
 				}
 			} catch (Exception e) {
 				System.out.println("La valeur entrée n'est pas correcte");
+				logger.info(e);
 			}
 		} while (!valeurCorecte);
 		return reponse;
